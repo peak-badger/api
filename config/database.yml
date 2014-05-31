@@ -5,12 +5,12 @@ default: &default
 
 development:
   <<: *default
-  database: trailfit_development
+  database: peakbadge_development
   host: localhost
 
 test:
   <<: *default
-  database: trailfit_test
+  database: peakbadge_test
   host: localhost
 
 # As with config/secrets.yml, you never want to store sensitive information,
