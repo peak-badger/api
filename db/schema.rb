@@ -36,7 +36,8 @@ ActiveRecord::Schema.define(version: 20140601031644) do
   end
 
   create_table "users", force: true do |t|
-    t.integer  "fb_id",      limit: 8, null: false
+    t.integer  "fb_id",           limit: 8, null: false
+    t.decimal  "vertical_height"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

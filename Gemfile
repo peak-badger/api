@@ -1,4 +1,4 @@
-ruby '2.0.0'
+ruby '2.1.0'
 source 'https://rubygems.org'
 
 gem 'figaro'
@@ -19,6 +19,7 @@ end
 group :development, :test do
   gem 'pry'
   gem 'pry-debugger'
+  gem 'spring-commands-rspec'
 end
 
 group :test do

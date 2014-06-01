@@ -35,6 +35,13 @@ describe BadgesController do
         user = User.find parsed_response['user']['id']
         expect(user.badges.count).to be 1
       end
+
+      it 'should update the vertical height' do
+        response = do_post
+        parsed_response = JSON.parse(response.body)
+        user = User.find parsed_response['user']['id']
+        expect(user.vertical_height).to be_within(1).of(test_peak.height)
+      end
     end
 
     context 'when the FB access token is for an existing user' do
@@ -56,6 +63,13 @@ describe BadgesController do
           test_user #create the user
           do_post
           expect(test_user.badges.count).to be 1
+        end
+
+        it 'should update the vertical height' do
+          test_user
+          do_post
+          test_user.reload
+          expect(test_user.vertical_height).to be_within(1).of(test_peak.height)
         end
       end
     end

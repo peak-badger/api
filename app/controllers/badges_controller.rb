@@ -9,6 +9,8 @@ class BadgesController < ApplicationController
     existing_peak = @user.peaks.find new_peak rescue nil
     unless existing_peak
       @user.peaks << new_peak
+      @user.vertical_height = @user.vertical_height ? @user.vertical_height + new_peak.height : new_peak.height
+      @user.save
     end
   end
 
