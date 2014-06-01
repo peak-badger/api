@@ -15,8 +15,8 @@ describe BadgesController do
     def setup_fb_mocks
       @graph = double()
       Koala::Facebook::API.stub(:new) { @graph }
-      fb_user = {'id' => facebook_id}
-      @graph.stub(:get_object) { fb_user }
+      @fb_user = {'id' => facebook_id, 'first_name' => 'Test', 'last_name' => 'User'}
+      @graph.stub(:get_object) { @fb_user }
     end
 
     before do
@@ -27,6 +27,9 @@ describe BadgesController do
 
       it 'should create a new user' do
         expect{do_post}.to change(User, :count).by(1)
+        user = User.last
+        #binding.pry
+        expect(user.name).to eq "#{@fb_user['first_name']} #{@fb_user['last_name']}"
       end
 
       it 'should associate the user to badge' do
