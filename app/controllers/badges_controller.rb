@@ -3,14 +3,16 @@ class BadgesController < ApplicationController
   def create
     graph = Koala::Facebook::API.new(get_fb_token)
     fb_user = graph.get_object('me')
-    @user = update_fb_user(fb_user)
+    badge_user = update_fb_user(fb_user)
 
     new_peak = find_peak(badge_params)
-    existing_peak = @user.peaks.find new_peak rescue nil
-    unless existing_peak
-      @user.peaks << new_peak
-      @user.vertical_height = @user.vertical_height ? @user.vertical_height + new_peak.height : new_peak.height
-      @user.save
+    existing_peak = badge_user.peaks.find new_peak rescue nil
+    if existing_peak
+      @badge = Badge.where(user: badge_user, peak: existing_peak)
+    else
+      @badge = Badge.create user: badge_user, peak: new_peak
+      badge_user.vertical_height = badge_user.vertical_height ? badge_user.vertical_height + new_peak.height : new_peak.height
+      badge_user.save
     end
   end
 

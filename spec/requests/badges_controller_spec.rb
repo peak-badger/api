@@ -28,21 +28,20 @@ describe BadgesController do
       it 'should create a new user' do
         expect{do_post}.to change(User, :count).by(1)
         user = User.last
-        #binding.pry
         expect(user.name).to eq "#{@fb_user['first_name']} #{@fb_user['last_name']}"
       end
 
       it 'should associate the user to badge' do
         response = do_post
         parsed_response = JSON.parse(response.body)
-        user = User.find parsed_response['user']['id']
+        user = User.find parsed_response['badge']['user_id']
         expect(user.badges.count).to be 1
       end
 
       it 'should update the vertical height' do
         response = do_post
         parsed_response = JSON.parse(response.body)
-        user = User.find parsed_response['user']['id']
+        user = User.find parsed_response['badge']['user_id']
         expect(user.vertical_height).to be_within(1).of(test_peak.height)
       end
     end
