@@ -3,3 +3,8 @@ rvm:
   - 2.0.0
 script: rspec spec
 bundler_args: --without production
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - cp config/database.yml.travis config/database.yml
+services:
+  - post
