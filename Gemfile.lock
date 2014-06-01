@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/sideshowcoder/geohash.git
+  revision: 3349af2fc1e9c3f135c47af0d8cd027c07638513
+  specs:
+    geohash (1.1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -151,6 +157,7 @@ PLATFORMS
 DEPENDENCIES
   factory_girl_rails
   figaro
+  geohash!
   koala
   pg
   pry

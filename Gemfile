@@ -2,6 +2,7 @@ ruby '2.0.0'
 source 'https://rubygems.org'
 
 gem 'figaro'
+gem 'geohash', git: 'git://github.com/sideshowcoder/geohash.git'
 gem 'koala'
 gem 'pg'
 gem 'rails', '4.1.1'
