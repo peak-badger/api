@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/sideshowcoder/geohash.git
+  revision: 3349af2fc1e9c3f135c47af0d8cd027c07638513
+  specs:
+    geohash (1.1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -45,6 +51,8 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
+    faker (1.3.0)
+      i18n (~> 0.5)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     figaro (0.7.0)
@@ -127,6 +135,8 @@ GEM
       activesupport (>= 3.0.0)
     slop (3.5.0)
     spring (1.1.3)
+    spring-commands-rspec (1.0.2)
+      spring (>= 0.9.1)
     sprockets (2.12.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -150,7 +160,9 @@ PLATFORMS
 
 DEPENDENCIES
   factory_girl_rails
+  faker
   figaro
+  geohash!
   koala
   pg
   pry
@@ -162,3 +174,4 @@ DEPENDENCIES
   rspec-rails
   shoulda
   spring
+  spring-commands-rspec

@@ -5,10 +5,10 @@ describe BadgesController do
   describe '#create' do
 
     let(:facebook_id){ 12234 }
-    let(:test_badge){ FactoryGirl.create(:badge) }
+    let(:test_peak){ FactoryGirl.create(:pikes_peak) }
 
     def do_post
-      post '/badges', {id: test_badge.id, format: :json}, { fb_access_token: 1}
+      post '/badges', {lat: test_peak.lat, lng: test_peak.lng, format: :json}, { fb_access_token: 1}
       response
     end
 
@@ -23,11 +23,6 @@ describe BadgesController do
       setup_fb_mocks
     end
 
-    it 'should check the FB access token' do
-      Koala::Facebook::API.should_receive(:new) { @graph }
-      do_post
-    end
-
     context 'when the FB access token is for a new user' do
 
       it 'should create a new user' do
@@ -40,6 +35,13 @@ describe BadgesController do
         user = User.find parsed_response['user']['id']
         expect(user.badges.count).to be 1
       end
+
+      it 'should update the vertical height' do
+        response = do_post
+        parsed_response = JSON.parse(response.body)
+        user = User.find parsed_response['user']['id']
+        expect(user.vertical_height).to be_within(1).of(test_peak.height)
+      end
     end
 
     context 'when the FB access token is for an existing user' do
@@ -49,9 +51,9 @@ describe BadgesController do
       context 'when the badge was already assigned to the user' do
 
         it 'should not create a new association' do
-          FactoryGirl.create(:user_badge, badge: test_badge, user: test_user)
+          FactoryGirl.create(:badge, peak: test_peak, user: test_user)
           do_post
-          expect(UserBadge.where(badge_id: test_badge.id, user_id: test_user.id).count).to be 1
+          expect(Badge.where(peak_id: test_peak.id, user_id: test_user.id).count).to be 1
         end
       end
 
@@ -61,6 +63,13 @@ describe BadgesController do
           test_user #create the user
           do_post
           expect(test_user.badges.count).to be 1
+        end
+
+        it 'should update the vertical height' do
+          test_user
+          do_post
+          test_user.reload
+          expect(test_user.vertical_height).to be_within(1).of(test_peak.height)
         end
       end
     end
