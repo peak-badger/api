@@ -17,9 +17,13 @@ ActiveRecord::Schema.define(version: 20140601031644) do
   enable_extension "plpgsql"
 
   create_table "badges", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "peak_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "badges", ["user_id", "peak_id"], name: "index_badges_on_user_id_and_peak_id", unique: true, using: :btree
 
   create_table "peaks", force: true do |t|
     t.string   "name"
@@ -30,15 +34,6 @@ ActiveRecord::Schema.define(version: 20140601031644) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "user_badges", force: true do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "badge_id",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_badges", ["user_id", "badge_id"], name: "index_user_badges_on_user_id_and_badge_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.integer  "fb_id",      limit: 8, null: false
