@@ -1,0 +1,5 @@
+langauage: ruby
+rvm:
+  - 2.0.0
+script: rspec spec
+bundler_args: --without production
