@@ -27,4 +27,5 @@ group :test do
   gem 'rspec-pride'
   gem 'rspec-rails'
   gem 'shoulda'
+  gem 'faker'
 end
