@@ -1,11 +1,11 @@
-ruby '2.1.0'
+ruby '2.6.3'
 source 'https://rubygems.org'
 
 gem 'figaro'
-gem 'geohash', git: 'git://github.com/sideshowcoder/geohash.git'
+gem 'geohashr'
 gem 'koala'
 gem 'pg'
-gem 'rails', '4.1.1'
+gem 'rails', '4.2.11.1'
 gem 'rabl-rails'
 
 group :production do
@@ -17,8 +17,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'pry'
-  gem 'pry-debugger'
   gem 'spring-commands-rspec'
 end
 
